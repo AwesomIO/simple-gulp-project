@@ -1,0 +1,17 @@
+{
+  "name": "simple-gulp-project",
+  "description": "Is simple GULP-project with bootstrap 4",
+  "main": "index.js",
+  "authors": [
+    "Artem Vasilev <kern.usr@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/awesomio/simple-gulp-project",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
