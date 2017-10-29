@@ -26,7 +26,8 @@ var serverConfig = {
 	logLevel: "debug",
     logPrefix: "Simple Gulp Project",
 	online: false,
-	browser: 'firefox'
+	browser: 'firefox',
+	codeSync: true
 };
 
 gulp.task('html-build', function() {
@@ -35,7 +36,8 @@ gulp.task('html-build', function() {
       prefix: '@@',
       basepath: '@file'
     }))
-    .pipe(gulp.dest(path.public.html));
+    .pipe(gulp.dest(path.public.html))
+	.pipe(browserSync.stream());
 });
 
 gulp.task('watch', function(){
@@ -43,6 +45,9 @@ gulp.task('watch', function(){
         gulp.start('html-build');
     });
 });
+
 gulp.task('server-start', function () {
     browserSync(serverConfig);
 });
+
+gulp.task('default', ['server-start', 'watch']);
