@@ -1,17 +1,27 @@
 var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	watch = require('gulp-watch'),
+	uglify = require('gulp-uglify'),
+	autoprefixer = require('gulp-autoprefixer'),
+	minify = require('gulp-minify-css'),
+	sass = require('gulp-sass'),
+	sourcemaps = require('gulp-sourcemaps'),
+	rename = require('gulp-rename'),
+	plumber = require('gulp-plumber'),
 	_include = require('gulp-file-include');
 
 var path = {
 	src : {
-		html : 'src/*.html'
+		html : 'src/*.html',
+		scss : 'src/scss/*.scss'
 	},
 	public : {
-		html : 'public/'
+		html : 'public/',
+		css : 'public/css/'
 	},
 	watch : {
-		html : 'src/**/*.html'
+		html : 'src/**/*.html',
+		scss : 'src/scss/**/*.scss'
 	}
 };
 
@@ -40,9 +50,26 @@ gulp.task('html-build', function() {
 	.pipe(browserSync.stream());
 });
 
+gulp.task('css-build', function() {
+  gulp.src(path.src.scss)
+	.pipe(plumber())
+	.pipe(sourcemaps.init())
+	.pipe(sass())
+	.pipe(autoprefixer())
+	.pipe(gulp.dest(path.public.css))
+	.pipe(rename({ suffix: '.min' }))
+	.pipe(minify())
+	.pipe(sourcemaps.write())
+	.pipe(gulp.dest(path.public.css))
+	.pipe(browserSync.stream());
+});
+
 gulp.task('watch', function(){
     watch([path.watch.html], function(event, cb) {
         gulp.start('html-build');
+    });
+    watch([path.watch.scss], function(event, cb) {
+        gulp.start('css-build');
     });
 });
 
