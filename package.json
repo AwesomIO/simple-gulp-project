@@ -9,6 +9,7 @@
   "author": "Artem Vasilev <kern.usr@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.18.13",
     "gulp": "^3.9.1",
     "gulp-file-include": "^1.2.0"
   }
