@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
+	watch = require('gulp-watch'),
 	_include = require('gulp-file-include');
 
 var path = {
@@ -8,6 +9,9 @@ var path = {
 	},
 	public : {
 		html : 'public/'
+	},
+	watch : {
+		html : 'src/**/*.html'
 	}
 };
 
@@ -34,6 +38,11 @@ gulp.task('html-build', function() {
     .pipe(gulp.dest(path.public.html));
 });
 
+gulp.task('watch', function(){
+    watch([path.watch.html], function(event, cb) {
+        gulp.start('html-build');
+    });
+});
 gulp.task('server-start', function () {
     browserSync(serverConfig);
 });
