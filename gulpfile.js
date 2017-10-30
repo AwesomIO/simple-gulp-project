@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	rename = require('gulp-rename'),
 	plumber = require('gulp-plumber'),
+	del = require('delete'),
 	_include = require('gulp-file-include');
 
 var path = {
@@ -75,6 +76,10 @@ gulp.task('watch', function(){
 
 gulp.task('server-start', function () {
     browserSync(serverConfig);
+});
+
+gulp.task('clean', function(){
+	del('public/', {force: true});
 });
 
 gulp.task('default', ['server-start', 'watch']);
