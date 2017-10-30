@@ -82,4 +82,6 @@ gulp.task('clean', function(){
 	del('public/', {force: true});
 });
 
-gulp.task('default', ['server-start', 'watch']);
+gulp.task('build', ['clean', 'html-build', 'css-build']);
+
+gulp.task('default', ['build', 'server-start', 'watch']);
