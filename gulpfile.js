@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 	watch = require('gulp-watch'),
 	uglify = require('gulp-uglify'),
 	autoprefixer = require('gulp-autoprefixer'),
-	minify = require('gulp-minify-css'),
+	cleanCSS = require('gulp-clean-css'),
 	sass = require('gulp-sass'),
 	sourcemaps = require('gulp-sourcemaps'),
 	rename = require('gulp-rename'),
@@ -58,7 +58,7 @@ gulp.task('css-build', function() {
 	.pipe(autoprefixer())
 	.pipe(gulp.dest(path.public.css))
 	.pipe(rename({ suffix: '.min' }))
-	.pipe(minify())
+	.pipe(cleanCSS())
 	.pipe(sourcemaps.write())
 	.pipe(gulp.dest(path.public.css))
 	.pipe(browserSync.stream());
