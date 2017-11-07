@@ -60,7 +60,7 @@ gulp.task('css-build', function() {
 	.pipe(gulp.dest(path.public.css))
 	.pipe(rename({ suffix: '.min' }))
 	.pipe(cleanCSS())
-	.pipe(sourcemaps.write())
+	.pipe(sourcemaps.write('./'))
 	.pipe(gulp.dest(path.public.css))
 	.pipe(browserSync.stream());
 });
