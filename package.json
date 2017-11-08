@@ -9,10 +9,13 @@
   "author": "Artem Vasilev <kern.usr@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
     "delete": "^1.1.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.0",
     "gulp-clean-css": "^3.9.0",
     "gulp-file-include": "^1.2.0",
     "gulp-plumber": "^1.1.0",
@@ -21,5 +24,6 @@
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0",
     "gulp-watch": "^4.3.11"
-  }
+  },
+  "dependencies": {}
 }

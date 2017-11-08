@@ -8,21 +8,25 @@ var gulp = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	rename = require('gulp-rename'),
 	plumber = require('gulp-plumber'),
+	babel = require('gulp-babel'),
 	del = require('delete'),
 	_include = require('gulp-file-include');
 
 var path = {
 	src : {
 		html : 'src/*.html',
-		scss : 'src/scss/*.scss'
+		scss : 'src/scss/*.scss',
+		js : 'src/js/main.js'
 	},
 	public : {
 		html : 'public/',
-		css : 'public/css/'
+		css : 'public/css/',
+		js : 'public/js/'
 	},
 	watch : {
 		html : 'src/**/*.html',
-		scss : 'src/scss/**/*.scss'
+		scss : 'src/scss/**/*.scss',
+		js : 'src/js/**/*.js'
 	}
 };
 
@@ -65,12 +69,31 @@ gulp.task('css-build', function() {
 	.pipe(browserSync.stream());
 });
 
+gulp.task('js-build', function() {
+  gulp.src(path.src.js)
+	.pipe(sourcemaps.init())
+	.pipe(_include({
+      prefix: '@@',
+      basepath: '@file'
+    }))
+	.pipe(babel({
+		presets: ['env']
+	}))
+	.pipe(uglify())
+	.pipe(sourcemaps.write('./'))
+	.pipe(gulp.dest(path.public.js))
+	.pipe(browserSync.stream());
+});
+
 gulp.task('watch', function(){
     watch([path.watch.html], function(event, cb) {
         gulp.start('html-build');
     });
     watch([path.watch.scss], function(event, cb) {
         gulp.start('css-build');
+    });
+    watch([path.watch.js], function(event, cb) {
+        gulp.start('js-build');
     });
 });
 
@@ -82,6 +105,6 @@ gulp.task('clean', function(){
 	del('public/', {force: true});
 });
 
-gulp.task('build', ['clean', 'html-build', 'css-build']);
+gulp.task('build', ['clean', 'html-build', 'css-build', 'js-build']);
 
 gulp.task('default', ['build', 'server-start', 'watch']);
