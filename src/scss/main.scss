@@ -7,6 +7,10 @@ body {
 }
 
 nav {
+	.logo {
+		height: 32px;
+		float: left;
+	}
   ul {
     margin: 0;
     padding: 0;
@@ -35,6 +39,11 @@ main{
 
 footer{
 	text-align: center;
+	
+	.logo {
+		max-width: 64px;
+		vertical-align: middle;
+	}
 	
 	small {
 		color: $secondary-text-color;
