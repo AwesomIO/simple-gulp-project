@@ -18,19 +18,22 @@ var path = {
 		html : 'src/*.html',
 		scss : 'src/scss/*.scss',
 		js : 'src/js/main.js',
-		img : 'src/images/*'
+		img : 'src/images/*',
+		fonts : 'src/fonts/*'
 	},
 	public : {
 		html : 'public/',
 		css : 'public/css/',
 		js : 'public/js/',
-		img : 'public/images/'
+		img : 'public/images/',
+		fonts : 'public/fonts/'
 	},
 	watch : {
 		html : 'src/**/*.html',
 		scss : 'src/scss/**/*.scss',
 		js : 'src/js/**/*.js',
-		img : 'src/images/*'
+		img : 'src/images/*',
+		fonts : 'src/fonts/*'
 	}
 };
 
@@ -106,6 +109,12 @@ gulp.task('images-build', function() {
 		.pipe(browserSync.stream());
 });
 
+gulp.task('fonts-copy', function() {
+	gulp.src(path.src.fonts)
+		.pipe(gulp.dest(path.public.fonts))
+		.pipe(browserSync.stream());
+});
+
 gulp.task('watch', function(){
     watch([path.watch.html], function(event, cb) {
         gulp.start('html-build');
@@ -119,6 +128,9 @@ gulp.task('watch', function(){
     watch([path.watch.img], function(event, cb) {
         gulp.start('images-build');
     });
+    watch([path.watch.fonts], function(event, cb) {
+        gulp.start('fonts-copy');
+    });
 });
 
 gulp.task('server-start', function () {
@@ -129,6 +141,6 @@ gulp.task('clean', function(){
 	del('public/', {force: true});
 });
 
-gulp.task('build', ['clean', 'html-build', 'css-build', 'js-build', 'images-build']);
+gulp.task('build', ['clean', 'html-build', 'images-build', 'fonts-copy', 'css-build', 'js-build']);
 
 gulp.task('default', ['build', 'server-start', 'watch']);
